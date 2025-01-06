@@ -10,13 +10,17 @@ for (let i = 0; i < nCells; i++) {
     board.appendChild(cell);
 }
 
+let isMouseDown = false;
+const body = document.querySelector("body"); 
+body.addEventListener("mousedown", () => isMouseDown = true);
+body.addEventListener("mouseup", () => isMouseDown = false);
 
 // click bubbles up from button (which is the target) to board. 
 board.addEventListener("mouseover", (event) => {
     console.log(event.target.classList);
-    // if (event.target.classList.contains("defaultCell")) {
+    if (isMouseDown) {
         event.target.style.backgroundColor = "pink"; 
-    // }
+    }
 })
 
 // Event Bubbling:
