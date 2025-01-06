@@ -11,3 +11,15 @@ for (let i = 0; i < dimension; i++) {
     }
     board.appendChild(row);
 }
+
+
+// click bubbles up from button (which is the target) to board. 
+board.addEventListener("click", (event) => {
+    console.log(event.target.classList);
+    // if (event.target.classList.contains("defaultCell")) {
+        event.target.style.backgroundColor = "pink"; 
+    // }
+})
+
+// Event Bubbling:
+// https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Event_bubbling
