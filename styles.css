@@ -1,0 +1,19 @@
+#board {
+    border: 2px solid black;
+    width: 200px;
+    height: 200px;
+    margin: 2px solid pink;
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex: 1 1 0;
+}
+
+.defaultCell { 
+    background-color: aquamarine;
+    margin: 2px;
+    flex: 1 1 0;
+}
