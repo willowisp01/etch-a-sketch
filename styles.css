@@ -1,3 +1,8 @@
+body {
+    height: 100vh;
+    cursor: default;
+}
+
 #board {
     border: 2px solid black;
     width: 600px;
