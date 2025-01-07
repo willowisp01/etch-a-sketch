@@ -1,5 +1,19 @@
-let dimension = 17; 
+// Initialize variables and constants
+
+const DEFAULT_DIMENSION = 15;
+let dimension = DEFAULT_DIMENSION;
+let isMouseDown = false; 
+
+const body = document.querySelector("body");
 const board = document.querySelector("#board");
+const sizeButton = document.querySelector("#size-button"); 
+const resetButton = document.querySelector("#reset-button");
+
+// Initialize Grid 
+
+loadGrid(dimension);
+
+// Grid functions and listeners
 
 function loadGrid(dimension) {
     clearGrid();
@@ -22,21 +36,36 @@ function clearGrid() {
     }
 }
 
-loadGrid(dimension);
+
+// Mouse functions and listeners
+
+body.addEventListener("mousedown", () => {
+    isMouseDown = true;
+    console.log(isMouseDown);
+})
+body.addEventListener("mouseup", () => {
+    isMouseDown = false;
+    console.log(isMouseDown);
+})
+
+board.addEventListener("mousedown", colorGrid);
+board.addEventListener("mouseover", (event) => {
+    if (isMouseDown) {
+        colorGrid(event);
+    }
+});
 
 
-board.addEventListener("mouseover", colorGrid);
+// Coloring functions and listeners
 
 // Event Bubbling:
 // https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Event_bubbling
 // click bubbles up from button (which is the target) to board. 
 function colorGrid(event) {
-    console.log(event.target);
-    console.log(event.target.classList);
     if (event.target.classList.contains("defaultCell")) {
         event.target.style.backgroundColor = getRandomColor();
         let cellOpacity = event.target.style.opacity;
-        cellOpacity = parseFloat(cellOpacity || 0) + 0.10;
+        cellOpacity = parseFloat(cellOpacity || 0) + 0.10; // https://stackoverflow.com/questions/2802055/what-does-the-construct-x-x-y-mean
         event.target.style.opacity = cellOpacity;
     }
 }
@@ -46,8 +75,14 @@ function getRandomColor() {
     return "#" + Math.floor(Math.random()*16777215).toString(16).padStart(6, "0"); 
 }
 
-const button = document.querySelector("button"); 
-button.addEventListener("click", () => {
+// Button functions and listeners
+
+resetButton.addEventListener("click", () => {
+    clearGrid();
+    loadGrid(dimension);
+})
+
+sizeButton.addEventListener("click", () => {
     let input = -1;
     let valid = false; 
     do {
@@ -72,8 +107,3 @@ button.addEventListener("click", () => {
 // What to do if you've been making changes on the wrong branch?
 // https://stackoverflow.com/questions/22082307/git-switch-branch-without-discarding-local-changes
 
-let body = document.querySelector("body");
-body.addEventListener("drag", (event) => {
-    console.log("Dragging...");
-    console.log(event.target);
-})
