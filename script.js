@@ -22,14 +22,25 @@ function clearGrid() {
 loadGrid(dimension);
 
 
-board.addEventListener("mouseover", colorGrid)
+board.addEventListener("mouseover", colorGrid);
 
 // Event Bubbling:
 // https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Event_bubbling
 // click bubbles up from button (which is the target) to board. 
 function colorGrid(event) {
+    console.log(event.target);
     console.log(event.target.classList);
-    event.target.style.backgroundColor = "pink"; 
+    if (event.target.classList.contains("defaultCell")) {
+        event.target.style.backgroundColor = getRandomColor();
+    }
+    let cellOpacity = event.target.style.opacity;
+    cellOpacity = parseFloat(cellOpacity || 0) + 0.10;
+    event.target.style.opacity = cellOpacity;
+}
+
+function getRandomColor() {
+    // there are 16777215 different possible hexadecimal colors.
+    return "#" + Math.floor(Math.random()*16777215).toString(16).padStart(6, "0"); 
 }
 
 const button = document.querySelector("button"); 
@@ -52,4 +63,8 @@ button.addEventListener("click", () => {
     } while (!valid);
 })
 
+// Git basics
+// https://www.youtube.com/watch?v=BIjrKuJGTxw
 
+// What to do if you've been making changes on the wrong branch?
+// https://stackoverflow.com/questions/22082307/git-switch-branch-without-discarding-local-changes
