@@ -15,5 +15,6 @@ body {
 
 .defaultCell { 
     background-color: aquamarine;
+    opacity: 0;
     flex: 1 1 0;
 }
