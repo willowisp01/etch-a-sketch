@@ -9,6 +9,9 @@ function loadGrid(dimension) {
         let cell = document.createElement("div");
         cell.classList.add("defaultCell"); 
         cell.style.flexBasis = cellPercentage + "%";
+        cell.addEventListener("dragstart", (event) => {
+            event.preventDefault(); // Completely disable drag for this element
+        });
         board.appendChild(cell);    
     }
 }
@@ -32,10 +35,10 @@ function colorGrid(event) {
     console.log(event.target.classList);
     if (event.target.classList.contains("defaultCell")) {
         event.target.style.backgroundColor = getRandomColor();
+        let cellOpacity = event.target.style.opacity;
+        cellOpacity = parseFloat(cellOpacity || 0) + 0.10;
+        event.target.style.opacity = cellOpacity;
     }
-    let cellOpacity = event.target.style.opacity;
-    cellOpacity = parseFloat(cellOpacity || 0) + 0.10;
-    event.target.style.opacity = cellOpacity;
 }
 
 function getRandomColor() {
@@ -68,3 +71,9 @@ button.addEventListener("click", () => {
 
 // What to do if you've been making changes on the wrong branch?
 // https://stackoverflow.com/questions/22082307/git-switch-branch-without-discarding-local-changes
+
+let body = document.querySelector("body");
+body.addEventListener("drag", (event) => {
+    console.log("Dragging...");
+    console.log(event.target);
+})
